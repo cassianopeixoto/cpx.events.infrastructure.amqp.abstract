@@ -40,7 +40,7 @@ public sealed class ISubscribeServiceTest
                 Assert.Single(genericParameterConstraints);
 
                 var constraintType = genericParameterConstraints.SingleOrDefault(o => o == typeof(Event));
-                Assert.NotNull(genericArg);
+                Assert.NotNull(constraintType);
             }
         }
 

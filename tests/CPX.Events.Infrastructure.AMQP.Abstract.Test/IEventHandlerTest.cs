@@ -19,6 +19,22 @@ public sealed class IEventHandlerTest
         // Act
         await eventHandler.HandleAsync(@event, cancellationToken);
         // Assert
+        var eventHandlerType = typeof(IEventHandler<>);
+        var getGenericArguments = eventHandlerType.GetGenericArguments();
+        Assert.Single(getGenericArguments);
+
+        var getGenericArgument = getGenericArguments.SingleOrDefault();
+        Assert.NotNull(getGenericArgument);
+
+        if (getGenericArgument is not null)
+        {
+            var genericParameterConstraints = getGenericArgument.GetGenericParameterConstraints();
+            Assert.Single(genericParameterConstraints);
+
+            var constraintType = genericParameterConstraints.SingleOrDefault(o => o == typeof(Event));
+            Assert.NotNull(constraintType);
+        }
+
         var methodInfo = eventHandler.GetType().GetMethod("HandleAsync");
         Assert.NotNull(methodInfo);
         if (methodInfo is not null)

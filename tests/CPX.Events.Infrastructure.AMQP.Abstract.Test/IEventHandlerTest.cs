@@ -36,10 +36,13 @@ public sealed class IEventHandlerTest
 
         if (methodInfo is not null)
         {
+            var returnType = methodInfo.ReturnType;
+            Assert.Equal(typeof(Task), returnType);
+
             var parameters = methodInfo.GetParameters();
             Assert.Equal(2, parameters.Length);
 
-            var eventType = parameters.SingleOrDefault(o => o.ParameterType == typeof(Event));
+            var eventType = parameters.SingleOrDefault(o => o.ParameterType.BaseType == typeof(Event));
             Assert.NotNull(eventType);
 
             var cancellationTokenType = parameters.SingleOrDefault(o => o.ParameterType == typeof(CancellationToken));

@@ -14,6 +14,9 @@ public sealed class IPublishServiceTest
 
         if (methodInfo is not null)
         {
+            var returnType = methodInfo.ReturnType;
+            Assert.Equal(typeof(void), returnType);
+
             var parameters = methodInfo.GetParameters();
             Assert.Single(parameters);
 

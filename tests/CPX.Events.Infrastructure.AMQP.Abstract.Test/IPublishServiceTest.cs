@@ -18,7 +18,10 @@ public sealed class IPublishServiceTest
             Assert.Equal(typeof(void), returnType);
 
             var parameters = methodInfo.GetParameters();
-            Assert.Single(parameters);
+            Assert.Equal(2, parameters.Length);
+
+            var stringType = parameters.SingleOrDefault(o => o.ParameterType == typeof(string));
+            Assert.NotNull(stringType);
 
             var eventType = parameters.SingleOrDefault(o => o.ParameterType == typeof(Event));
             Assert.NotNull(eventType);

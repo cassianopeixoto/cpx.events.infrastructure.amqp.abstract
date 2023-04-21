@@ -14,9 +14,12 @@ public sealed class ISubscribeServiceTest
         if (methodInfo is not null)
         {
             var parameters = methodInfo.GetParameters();
-            Assert.Single(parameters);
+            Assert.Equal(2, parameters.Length);
             var stringType = parameters.SingleOrDefault(o => o.ParameterType == typeof(string));
             Assert.NotNull(stringType);
+
+            var cancellationTokenType = parameters.SingleOrDefault(o => o.ParameterType == typeof(CancellationToken));
+            Assert.NotNull(cancellationTokenType);
 
             var genericArgs = methodInfo.GetGenericArguments();
             Assert.Single(genericArgs);

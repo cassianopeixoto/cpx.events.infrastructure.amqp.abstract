@@ -2,7 +2,7 @@
 
 namespace CPX.Events.Infrastructure.AMQP.Abstract;
 
-public interface IEventEmitterService
+public interface IEventEmitterService<TEvent> where TEvent : Event
 {
-    void Emit(Event @event);
+    void Emit(TEvent @event);
 }
